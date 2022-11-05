@@ -1,7 +1,12 @@
 import React from 'react';
+import Dashboard from './views/dashboard';
 
 function App() {
-  return <div>Welcome to Listing app for datatable</div>;
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
 }
 
 export default App;
