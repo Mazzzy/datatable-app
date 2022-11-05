@@ -1,0 +1,17 @@
+.btn {
+  background-color: var(--bg-offset);
+  padding: 0.7em 2em 0.5em 1em;
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: 0px 4px 6px var(--border);
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  &:hover {
+    box-shadow: 0px 0px 0px var(--border);
+
+    svg {
+      position: relative;
+      right: 8px;
+    }
+  }
+}
