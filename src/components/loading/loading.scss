@@ -1,0 +1,15 @@
+.loader {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 6em 0;
+
+  .loading {
+    animation: rotate-center 1s ease-in-out infinite forwards;
+  }
+
+  p {
+    margin-top: 2em;
+    text-align: center;
+  }
+}
