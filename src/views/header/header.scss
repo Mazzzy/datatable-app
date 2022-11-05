@@ -1,0 +1,41 @@
+.header {
+  background-color: var(--bg-offset);
+  padding: 1em 0.2em;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+
+  .logo-container {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    .logo-img {
+      max-width: 40px;
+    }
+
+    .logo-text {
+      font-weight: 600;
+      font-size: 16px;
+      margin: 0 6px;
+    }
+  }
+}
+
+/* dark mode */
+.header-btn {
+  color: var(--text);
+  padding: 0.6em;
+
+  svg {
+    fill: white;
+    outline: currentColor;
+    transition: all 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+  }
+}
+
+.header-btn.active {
+  svg {
+    fill: currentColor;
+  }
+}
