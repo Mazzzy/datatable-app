@@ -2,6 +2,8 @@ import React, { FC, MouseEvent, KeyboardEvent } from 'react';
 import { PhotoType } from '../../types';
 import { useSortableData } from './hooks-sortable';
 
+import Button from '../button';
+
 import './table.scss';
 
 interface TableProps {
@@ -30,9 +32,7 @@ const Table: FC<TableProps> = ({
   const TableHeadItem = ({ item }: { item: any }) => {
     return (
       <th title={item}>
-        <button type="button" onClick={() => requestSort(item)} className={getClassNamesFor(item)}>
-          {item}
-        </button>
+        <Button text={item} onClick={() => requestSort(item)} className={getClassNamesFor(item)} />
       </th>
     );
   };

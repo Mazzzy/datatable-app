@@ -1,6 +1,9 @@
 .dashboard-contents {
-  display: flex;
-  flex-direction: row;
   margin-top: 1.5rem;
   padding: 0 1.5rem;
+
+  .table-container {
+    overflow-x:auto;
+    white-space: nowrap;
+  }
 }
