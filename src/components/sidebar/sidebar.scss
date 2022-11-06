@@ -1,0 +1,29 @@
+.sidebar-container {
+  border-radius: 0.438em;
+  box-shadow: 2px 8px 20px var(--border);
+  right: -580px;
+  max-width: 480px;
+  position: fixed;
+  top: 5em;
+  height: calc(98vh - 4.2em);
+  bottom: 0;
+  width: 100%;
+  background-color: var(--bg-offset);
+  padding: 1.2em 0.8em;
+
+  &.show {
+    right: 0;
+  }
+
+  .sidebar-content {
+    padding: 0.3em;
+    color: var(--text);
+  }
+
+  .close {
+    position: absolute;
+    left: -8px;
+    top: -6px;
+  }
+  
+}
