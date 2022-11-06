@@ -1,25 +1,38 @@
 import React, { FC, useState, useEffect, FormEvent } from 'react';
 
-import { useFetch, parseLinkHeader, filterDataByColumnNameAndText } from '../../utils';
+import {
+  useFetch,
+  parseLinkHeader,
+  filterDataByColumnNameAndText,
+  isEmptyObject
+} from '../../utils';
 import { GET_PHOTOS_URL } from '../../config/constants';
+import { PhotoType } from '../../types';
 
 import Loading from '../../components/loading';
 import Error from '../../components/error';
 import Filter from '../../components/filter';
 import Table from '../../components/table';
 import Pagination from '../../components/pagination';
+import PhotoDetails from './photo-details';
 
 import './dashboard.scss';
 
 const Dashboard: FC = () => {
-  const [currentUrl, setCurrentUrl] = useState(`${GET_PHOTOS_URL}?_page=1&_limit=10`);
+  // get photos API related
+  const initCurrentUrl = `${GET_PHOTOS_URL}?_page=1&_limit=10`;
+  const [currentUrl, setCurrentUrl] = useState(initCurrentUrl);
   const [parsedLinkHeaders, setParsedLinkHeaders] = useState<any>({});
+  // filter related
   const [columnName, setColumnName] = useState('title');
   const [queryText, setQueryText] = useState('');
-
+  // selected photo item related
+  const [selectedPhotoDetails, setSelectedPhotoDetails] = useState<any>({});
   const { status, data, error, linkHeaders } = useFetch(currentUrl);
 
+  // table column data
   const theadData = ['id', 'albumId', 'title', 'url', 'thumbnailUrl'];
+  // filter data
   const filterSelectColumnList = [
     { name: 'albumId', value: 'albumId' },
     { name: 'title', value: 'title' },
@@ -53,12 +66,26 @@ const Dashboard: FC = () => {
     if (value) setColumnName(value);
   };
 
+  // table related event handlers
+  const handleRowClick = (photoDetails: PhotoType) => {
+    const { title } = photoDetails;
+    if (title && title.length > 0) {
+      // set photo to view in detailed
+      setSelectedPhotoDetails(photoDetails);
+    }
+  };
+
   // render data (photos) in the grid
   const renderPhotos = () => {
     const photoList = filterDataByColumnNameAndText(data, columnName, queryText);
     return (
       <div className="table-container">
-        <Table heading="Photos" theadItems={theadData} data={photoList} />
+        <Table
+          heading="Photos"
+          theadItems={theadData}
+          data={photoList}
+          handleRowClick={handleRowClick}
+        />
       </div>
     );
   };
@@ -83,6 +110,9 @@ const Dashboard: FC = () => {
               />
               {renderPhotos()}
               <Pagination onPaginate={paginate} />
+              {!isEmptyObject(selectedPhotoDetails) && (
+                <PhotoDetails photoDetails={selectedPhotoDetails} />
+              )}
             </>
           )}
         </>

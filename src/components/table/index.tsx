@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, KeyboardEvent } from 'react';
+import React, { FC, useState, MouseEvent, KeyboardEvent } from 'react';
 import { PhotoType } from '../../types';
 import { useSortableData } from './hooks-sortable';
 
@@ -11,7 +11,7 @@ interface TableProps {
   theadItems?: any[];
   data?: PhotoType[] | any[];
   className?: string;
-  onClick?: (event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>) => void;
+  handleRowClick?: (item: any) => void;
 }
 
 const Table: FC<TableProps> = ({
@@ -19,8 +19,10 @@ const Table: FC<TableProps> = ({
   theadItems = [],
   data = [],
   className = '',
-  onClick
+  handleRowClick
 }) => {
+  const [selectedRow, setSelectedRow] = useState(-1);
+
   const { items, requestSort, sortConfig } = useSortableData(data);
   const getClassNamesFor = (name: string) => {
     if (!sortConfig) {
@@ -37,9 +39,19 @@ const Table: FC<TableProps> = ({
     );
   };
 
-  const TableRow = ({ dataItem }: { dataItem: any }) => {
+  const TableRow = ({ dataItem, keyIndex }: { dataItem: any; keyIndex: number }) => {
+    const trClick = (e: MouseEvent<HTMLTableRowElement> | KeyboardEvent<HTMLTableRowElement>) => {
+      e.preventDefault();
+      if (handleRowClick) {
+        handleRowClick(dataItem);
+        setSelectedRow(keyIndex);
+      }
+    };
+
     return (
-      <tr>
+      <tr
+        {...(handleRowClick && { onClick: trClick })}
+        className={`${selectedRow === keyIndex ? 'selected' : ''}`}>
         {Object.keys(dataItem).map((key) => (
           <td key={key}>{dataItem[key]}</td>
         ))}
@@ -61,7 +73,7 @@ const Table: FC<TableProps> = ({
       </thead>
       <tbody>
         {items.map((dataRowItem, index) => {
-          return <TableRow key={`table-tbody-${index}`} dataItem={dataRowItem} />;
+          return <TableRow key={`table-tbody-${index}`} dataItem={dataRowItem} keyIndex={index} />;
         })}
       </tbody>
     </table>
