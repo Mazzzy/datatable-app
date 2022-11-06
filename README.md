@@ -1,46 +1,141 @@
-# Getting Started with Create React App
+# Datatable app with photo listing Frontend
+## Project overview
+This repo is the codebase for the frontend of photo listing in grid(datatable). 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Implementation details
+It displays view having header, logo and theme switch mode (light/dark) option.
+In the main view (dashboard) it contains grid(table) view that contains photo listing that are fetched from API along with pagination options in the bottom.
+- At the top of grid(table) there is Filter option, it contains Filter by free text and respective column selection option.
+- At the bottom of grid(table) there is pagination having options of first, prev, next and last. - By default page 1 along pageSize of 10 gets triggered and grid(table) gets populated. On respective click of pagination option, the details are fetched and updated in grid(table).
+- The table column has sort functionality, ascending and descending toggle based on button click in the respective header column.
+- On click of table row, respective character age details are fetched from another API and gets displayed in sidebar (from right)
+- On click of close (cross icon) in sidebar, it gets closed from right.
+- Unit testing of respective components, views etc.
 
-## Available Scripts
+### APIs used
+- Fetching Photo list along with page number and pageSize: ``https://jsonplaceholder.typicode.com/photos?_page=<page_number>&_limit=<page_size>``
+eg: ``https://jsonplaceholder.typicode.com/photos?_page=1&_limit=10``
 
-In the project directory, you can run:
+## Technology stacks
 
-### `npm start`
+__Core__
+- React, TypeScript, SASS, HTML5.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+__Libraries__
+- ``react-icons`` - for free icons across app.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+__Tools__
+- ``eslint`` with strict type-check & ``prettier`` - for formatting and beautifying code.
+- ``jest`` for unit testing.
+- LocalStorage for persisting theme mode at client's machine.
 
-### `npm test`
+## How to use
+Go to root directory `datatable-app` and Execute commands with `npm` or `yarn`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installing the application
+- If node is not installed then Install [node] (https://nodejs.org/en/download/)
+- Run the following command to load all the module dependencies for app:
+```bash
+npm install
+```
+Or
+```bash
+yarn
+```
 
-### `npm run build`
+### check lint related errors
+```bash
+npm run lint
+```
+Or
+```bash
+yarn lint
+```
+It runs ESLint and shows syntatical (code) and formating errors across the application.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### auto fix lint and formatting errors
+```bash
+npm run lint:fix
+```
+Or
+```bash
+yarn lint:fix
+```
+It auto fixes lint and formatting related errors across the application.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Running the app
+- To start the app in local environment/dev mode, run the command:
+```bash
+npm run start
+```
+Or
+```bash
+yarn start
+```
+It runs the react based app in the development mode. Open http://localhost:3000 to view it in the browser. The page will reload if you make edits.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Running unit tests (jest)
+- To run all the test cases for the application, run the command:
+```bash
+npm run test
+```
+Or
+```bash
+yarn test
+```
+It runs all available test cases(components, views etc) across the application. You can also run test cases in different modes (watch, specific files, filter etc).
 
-### `npm run eject`
+## Project folder structure
+```bash
+├── src
+│   ├── assets
+│   ├── components
+│   ├── config
+│   ├── styles
+│   ├── types
+│   ├── utils
+│   ├── views
+├── App.test.tsx
+├── App.tsx
+├── index.tsx
+├── react-app-env.d.ts
+├── setupTests.ts
+├── .env
+├── .eslintrc.js
+├── .gitignore
+├── .prettierrc
+├── package.json
+├── README.md
+├── tsconfig.json
+├── yarn.lock
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+__assets__ 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Contain images (logo).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+__components__ 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Contain shareable components - button, error, filter, loading, pagination, select, sidebar, table, textbox. It also contains test cases for respective components.
 
-## Learn More
+__config__ 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Contain configurations - constants. It contains urls for APIs
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+__styles__ 
+
+Contain common styles - base, utilities etc.
+
+__types__ 
+
+Contain types of data used in application - PhotoType, TableColumnType, SelectDataType. Types has been designed based on schema that maps to API response data and needed in UI application code.
+
+__utils__ 
+
+Contain utilities for filterByText, localStorage, custom-hooks for API calling, parsing link headers and helper functions.
+
+__views__
+
+Contain main views - dashboard, header. The main views contains respective child views based on features specific to that particular views.
+
+## Screenshots
