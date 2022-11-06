@@ -47,14 +47,6 @@ const Dashboard: FC = () => {
     }
   }, [linkHeaders]);
 
-  // paginate through link headers (first, prev, next and last )
-  const paginate = (direction: string) => {
-    if (parsedLinkHeaders[direction]) {
-      const currentUrl = parsedLinkHeaders[direction];
-      setCurrentUrl(currentUrl);
-    }
-  };
-
   // filter related event handlers
   const handleTextChange = (e: FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -73,6 +65,19 @@ const Dashboard: FC = () => {
       // set photo to view in detailed
       setSelectedPhotoDetails(photoDetails);
     }
+  };
+
+  // paginate through link headers (first, prev, next and last )
+  const paginate = (direction: string) => {
+    if (parsedLinkHeaders[direction]) {
+      const currentUrl = parsedLinkHeaders[direction];
+      setCurrentUrl(currentUrl);
+    }
+  };
+
+  // hide photo details container (sidebar)
+  const closePhotoDetailsView = () => {
+    setSelectedPhotoDetails({});
   };
 
   // render data (photos) in the grid
@@ -111,7 +116,10 @@ const Dashboard: FC = () => {
               {renderPhotos()}
               <Pagination onPaginate={paginate} />
               {!isEmptyObject(selectedPhotoDetails) && (
-                <PhotoDetails photoDetails={selectedPhotoDetails} />
+                <PhotoDetails
+                  photoDetails={selectedPhotoDetails}
+                  closePhotoDetailsView={closePhotoDetailsView}
+                />
               )}
             </>
           )}

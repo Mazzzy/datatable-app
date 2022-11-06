@@ -1,4 +1,45 @@
 .photo-details-container {
-  margin: 1.2em 0;
   display: flex;
+  
+  .photo-info {
+    width: 100%;
+
+    ul li {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-head {
+      margin: 0.3rem 0;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .info-label {
+      margin: 0.8rem 0;
+      color: rgb(124, 93, 250);
+    }
+
+    .info-text {
+      margin-bottom: 0.8rem;
+      border: 1px solid var(--gray);
+      border-radius: 4px;
+      padding: 1rem;
+      background: var(--bg-offset);
+      color: var(--text);
+    }
+
+    .info-thumbnail {
+      margin-bottom: 0.8rem;
+      border: 1px solid var(--gray);
+      border-radius: 4px;
+      max-width: 9.375rem;
+    }
+
+    .info-footer {
+      display: flex;
+      justify-content: space-between;
+      margin: 2.2rem 0;
+    }
+  } 
 }
