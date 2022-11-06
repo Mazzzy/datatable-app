@@ -5,7 +5,12 @@
   box-shadow: 0px 4px 6px var(--border);
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
   background-color: var(--bg-offset);
+  outline: none;
   &:hover {
     box-shadow: 0px 0px 0px var(--border);
+  }
+  &:focus  {
+    border: 2px solid var(--text);
+    border-radius: inherit;
   }
 }
