@@ -14,7 +14,7 @@ export const filterDataByColumnNameAndText = (
   queryText: string
 ) => {
   const textToFilter = queryText.toLowerCase();
-  const isStrPresent = (str: string) => str.toLowerCase().includes(textToFilter);
+  const isStrPresent = (str: string) => str.toString().toLowerCase().includes(textToFilter);
 
   return dataList.filter((dataObj: any) => {
     // look into only those properties, whose column-name is selected

@@ -1,20 +1,23 @@
 import React, { FC, MouseEvent, KeyboardEvent } from 'react';
-import { PhotoType } from '../../types';
+import { TableColumnType } from '../../types';
+import { isEmptyObject } from '../../utils';
 
 import Checkbox from '../checkbox';
 
 interface TableBodyProps {
-  data?: PhotoType[];
+  columns?: TableColumnType[];
+  data?: any[];
   className?: string;
   showCheck?: boolean;
   selectedRow?: number;
   checkedDataItems?: any[];
-  handleRowClick?: (item: PhotoType) => void;
+  handleRowClick?: (item: any) => void;
   setSelectedRow?: (index: number) => void;
   handleSingleChecked?: (e: any) => void;
 }
 
 const TableBody: FC<TableBodyProps> = ({
+  columns = [],
   data = [],
   className = '',
   showCheck = false,
@@ -24,6 +27,16 @@ const TableBody: FC<TableBodyProps> = ({
   setSelectedRow,
   handleSingleChecked
 }) => {
+  // const numericIds = columns.filter((item) => item.numeric).map(({ id }) => id);
+  const numericIds: any = [];
+  const widthHashmap: any = {};
+  columns.map(({ id, numeric, width }) => {
+    if (numeric) {
+      numericIds.push(id);
+    }
+    widthHashmap[id] = width;
+  });
+
   const TableRow = ({ dataItem, keyIndex }: { dataItem: any; keyIndex: number }) => {
     const trClick = (e: MouseEvent<HTMLTableRowElement> | KeyboardEvent<HTMLTableRowElement>) => {
       e.preventDefault();
@@ -34,6 +47,7 @@ const TableBody: FC<TableBodyProps> = ({
         }
       }
     };
+
     return (
       <tr
         {...(handleRowClick && { onClick: trClick })}
@@ -49,7 +63,12 @@ const TableBody: FC<TableBodyProps> = ({
           </td>
         )}
         {Object.keys(dataItem).map((key) => (
-          <td key={key}>{dataItem[key]}</td>
+          <td
+            key={key}
+            className={numericIds.includes(key) ? 'numeric' : ''}
+            style={{ width: `${widthHashmap[key]}px` }}>
+            {dataItem[key]}
+          </td>
         ))}
       </tr>
     );

@@ -63,6 +63,7 @@ const Table: FC<TableProps> = ({
         isCheckedAll={isCheckedAll}
       />
       <TableBody
+        columns={columns}
         data={items}
         showCheck={showCheck}
         handleRowClick={handleRowClick}

@@ -8,7 +8,7 @@ import {
 } from '../../utils';
 import { GET_PHOTOS_URL } from '../../config/constants';
 import { PhotoType } from '../../types';
-import TableColumnsData from './table-columns';
+import { FilterColumnsData, TableColumnsData } from './config-data';
 
 import Loading from '../../components/loading';
 import Error from '../../components/error';
@@ -21,7 +21,7 @@ import './dashboard.scss';
 
 const Dashboard: FC = () => {
   // get photos API related
-  const initCurrentUrl = `${GET_PHOTOS_URL}?_page=1&_limit=3`;
+  const initCurrentUrl = `${GET_PHOTOS_URL}?_page=1&_limit=10`;
   const [currentUrl, setCurrentUrl] = useState(initCurrentUrl);
   const [parsedLinkHeaders, setParsedLinkHeaders] = useState<any>({});
   // filter related
@@ -30,17 +30,6 @@ const Dashboard: FC = () => {
   // selected photo item related
   const [selectedPhotoDetails, setSelectedPhotoDetails] = useState<any>({});
   const { status, data, error, linkHeaders } = useFetch(currentUrl);
-
-  // table column data
-  // const theadData = ['id', 'albumId', 'title', 'url', 'thumbnailUrl'];
-  // filter data
-  const filterSelectColumnList = [
-    { name: 'id', value: 'id' },
-    { name: 'albumId', value: 'albumId' },
-    { name: 'title', value: 'title' },
-    { name: 'url', value: 'url' },
-    { name: 'thumbnailUrl', value: 'thumbnailUrl' }
-  ];
 
   useEffect(() => {
     if (linkHeaders) {
@@ -110,7 +99,7 @@ const Dashboard: FC = () => {
           {data.length > 0 && (
             <>
               <Filter
-                selectColumnList={filterSelectColumnList}
+                selectColumnList={FilterColumnsData}
                 queryText={queryText}
                 columnName={columnName}
                 handleTextChange={handleTextChange}
