@@ -39,7 +39,7 @@
   tbody tr {
     cursor: pointer;
     &:hover, &.selected {
-      background-color: var(--border);
+      background-color: var(--bg-offset);
     }
 
     td {
@@ -50,6 +50,11 @@
       &.numeric {
         text-align: right;
       }
+    }
+  }
+  tfoot {
+    td {
+      padding: 0.7rem 0;
     }
   }
 }

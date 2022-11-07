@@ -4,6 +4,7 @@ import { useSortableData } from './hooks-sortable';
 
 import TableHead from './TableHead';
 import TableBody from './TableBody';
+import TableFoot from './TableFoot';
 
 import './table.scss';
 
@@ -72,6 +73,7 @@ const Table: FC<TableProps> = ({
         checkedDataItems={checkedDataItems}
         handleSingleChecked={handleSingleChecked}
       />
+      <TableFoot footerText="Selected ids:" footerItems={checkedDataItems} />
     </table>
   );
 };
