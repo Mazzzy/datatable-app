@@ -1,0 +1,11 @@
+.checkbox {
+  border: 1px solid var(--border);
+  box-shadow: 0px 4px 6px var(--border);
+  &:hover {
+    box-shadow: 0px 0px 0px var(--border);
+  }
+  &:focus  {
+    border: 2px solid var(--text);
+    border-radius: inherit;
+  }
+}
