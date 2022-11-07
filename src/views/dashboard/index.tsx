@@ -8,6 +8,7 @@ import {
 } from '../../utils';
 import { GET_PHOTOS_URL } from '../../config/constants';
 import { PhotoType } from '../../types';
+import TableColumnsData from './table-columns';
 
 import Loading from '../../components/loading';
 import Error from '../../components/error';
@@ -20,7 +21,7 @@ import './dashboard.scss';
 
 const Dashboard: FC = () => {
   // get photos API related
-  const initCurrentUrl = `${GET_PHOTOS_URL}?_page=1&_limit=10`;
+  const initCurrentUrl = `${GET_PHOTOS_URL}?_page=1&_limit=3`;
   const [currentUrl, setCurrentUrl] = useState(initCurrentUrl);
   const [parsedLinkHeaders, setParsedLinkHeaders] = useState<any>({});
   // filter related
@@ -31,9 +32,10 @@ const Dashboard: FC = () => {
   const { status, data, error, linkHeaders } = useFetch(currentUrl);
 
   // table column data
-  const theadData = ['id', 'albumId', 'title', 'url', 'thumbnailUrl'];
+  // const theadData = ['id', 'albumId', 'title', 'url', 'thumbnailUrl'];
   // filter data
   const filterSelectColumnList = [
+    { name: 'id', value: 'id' },
     { name: 'albumId', value: 'albumId' },
     { name: 'title', value: 'title' },
     { name: 'url', value: 'url' },
@@ -87,8 +89,9 @@ const Dashboard: FC = () => {
       <div className="table-container">
         <Table
           heading="Photos"
-          theadItems={theadData}
+          columns={TableColumnsData}
           data={photoList}
+          showCheck={true}
           handleRowClick={handleRowClick}
         />
       </div>

@@ -1,81 +1,76 @@
-import React, { FC, useState, MouseEvent, KeyboardEvent } from 'react';
-import { PhotoType } from '../../types';
+import React, { FC, useState } from 'react';
+import { PhotoType, TableColumnType } from '../../types';
 import { useSortableData } from './hooks-sortable';
 
-import Button from '../button';
+import TableHead from './TableHead';
+import TableBody from './TableBody';
 
 import './table.scss';
 
 interface TableProps {
   heading?: string;
-  theadItems?: any[];
+  columns?: TableColumnType[];
   data?: PhotoType[] | any[];
   className?: string;
-  handleRowClick?: (item: any) => void;
+  showCheck?: boolean;
+  handleRowClick?: (item: PhotoType) => void;
 }
 
 const Table: FC<TableProps> = ({
   heading = '',
-  theadItems = [],
+  columns = [],
   data = [],
   className = '',
+  showCheck = false,
   handleRowClick
 }) => {
+  const [isCheckedAll, setIsCheckedAll] = useState(false);
+  const [checkedDataItems, setCheckedDataItems] = useState<any>([]);
   const [selectedRow, setSelectedRow] = useState(-1);
-
   const { items, requestSort, sortConfig } = useSortableData(data);
-  const getClassNamesFor = (name: string) => {
-    if (!sortConfig) {
-      return;
+
+  const handleCheckedAll = () => {
+    setIsCheckedAll(!isCheckedAll);
+    setCheckedDataItems(items.map((item) => String(item.id)));
+    if (isCheckedAll) {
+      setCheckedDataItems([]);
     }
-    return sortConfig.key === name ? sortConfig.direction : undefined;
   };
 
-  const TableHeadItem = ({ item }: { item: any }) => {
-    return (
-      <th title={item}>
-        <Button text={item} onClick={() => requestSort(item)} className={getClassNamesFor(item)} />
-      </th>
-    );
-  };
-
-  const TableRow = ({ dataItem, keyIndex }: { dataItem: any; keyIndex: number }) => {
-    const trClick = (e: MouseEvent<HTMLTableRowElement> | KeyboardEvent<HTMLTableRowElement>) => {
-      e.preventDefault();
-      if (handleRowClick) {
-        handleRowClick(dataItem);
-        setSelectedRow(keyIndex);
+  const handleSingleChecked = (e: any) => {
+    const { id, checked } = e.target;
+    const updatedCheckedDataItems = [...checkedDataItems, id];
+    setCheckedDataItems(updatedCheckedDataItems);
+    if (!checked) {
+      setCheckedDataItems(checkedDataItems.filter((item: any) => item !== id));
+      if (isCheckedAll) {
+        setIsCheckedAll(checked);
       }
-    };
-
-    return (
-      <tr
-        {...(handleRowClick && { onClick: trClick })}
-        className={`${selectedRow === keyIndex ? 'selected' : ''}`}>
-        {Object.keys(dataItem).map((key) => (
-          <td key={key}>{dataItem[key]}</td>
-        ))}
-      </tr>
-    );
+    } else if (updatedCheckedDataItems.length === items.length) {
+      setIsCheckedAll(checked);
+    }
   };
 
   return (
     <table className={`table ${className}`}>
-      {heading && <caption>{heading}</caption>}
-      <thead>
-        {theadItems.length > 0 && (
-          <tr>
-            {theadItems.map((headItem, index) => {
-              return <TableHeadItem key={`table-th-${index}`} item={headItem} />;
-            })}
-          </tr>
-        )}
-      </thead>
-      <tbody>
-        {items.map((dataRowItem, index) => {
-          return <TableRow key={`table-tbody-${index}`} dataItem={dataRowItem} keyIndex={index} />;
-        })}
-      </tbody>
+      <TableHead
+        heading={heading}
+        columns={columns}
+        showCheck={showCheck}
+        sortConfig={sortConfig}
+        handleSort={requestSort}
+        handleCheckedAll={handleCheckedAll}
+        isCheckedAll={isCheckedAll}
+      />
+      <TableBody
+        data={items}
+        showCheck={showCheck}
+        handleRowClick={handleRowClick}
+        selectedRow={selectedRow}
+        setSelectedRow={setSelectedRow}
+        checkedDataItems={checkedDataItems}
+        handleSingleChecked={handleSingleChecked}
+      />
     </table>
   );
 };

@@ -13,10 +13,12 @@ export const useSortableData = (items: PhotoType[] | any[], config = null) => {
     const sortableItems = [...items];
     if (sortConfig !== null) {
       sortableItems.sort((a: any, b: any) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
+        const aItem = a[sortConfig.key];
+        const bItem = b[sortConfig.key];
+        if (aItem < bItem) {
           return sortConfig.direction === 'ascending' ? -1 : 1;
         }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
+        if (aItem > bItem) {
           return sortConfig.direction === 'ascending' ? 1 : -1;
         }
         return 0;

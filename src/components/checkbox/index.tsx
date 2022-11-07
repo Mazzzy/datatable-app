@@ -1,6 +1,7 @@
 import React, { FC, FormEvent } from 'react';
 import './checkbox.scss';
 interface CheckboxProps {
+  id?: string;
   name?: string;
   value?: string;
   checked?: boolean;
@@ -8,9 +9,10 @@ interface CheckboxProps {
   onChange?: (e: FormEvent<HTMLInputElement>) => void;
 }
 
-const Checkbox: FC<CheckboxProps> = ({ name, value, checked, className = '', onChange }) => {
+const Checkbox: FC<CheckboxProps> = ({ id, name, value, checked, className = '', onChange }) => {
   return (
     <input
+      id={id}
       type="checkbox"
       className={`checkbox ${className || ''}`}
       name={name}
