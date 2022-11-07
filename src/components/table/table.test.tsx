@@ -94,9 +94,10 @@ describe('Component: Table with Props', () => {
       if (thElements) {
         thElements.forEach((th, colIndex) => {
           const cellContent = th.textContent?.trim();
-          if(cellContent && cellContent?.length > 0) { // for checkbox cell having empty string
+          if (cellContent && cellContent?.length > 0) {
+            // for checkbox cell having empty string
             // -1 to skip checkbox cellIndex
-            expect(th.textContent?.trim()).toEqual(tableMockColumns[colIndex-1].label);
+            expect(th.textContent?.trim()).toEqual(tableMockColumns[colIndex - 1].label);
           }
         });
       }
@@ -133,9 +134,9 @@ describe('Component: Table with Props', () => {
           if (tdElements) {
             tdElements.forEach((cell, cellIndex) => {
               const cellContent = cell.textContent?.trim();
-              if(cellContent && cellContent?.length > 0) {
+              if (cellContent && cellContent?.length > 0) {
                 // -1 to skip checkbox cellIndex
-                const mockCellValue = String(Object.values(tableMockData[rowIndex])[cellIndex-1]);
+                const mockCellValue = String(Object.values(tableMockData[rowIndex])[cellIndex - 1]);
                 expect(cell.textContent?.trim()).toEqual(mockCellValue);
               }
             });
@@ -216,7 +217,7 @@ describe('Component: Table with Props', () => {
 
   test('should call handleCheckedAll on click of checkbox in head', async () => {
     const tableElement = document.querySelector('table') as HTMLTableElement;
-    const firstThElement = tableElement.querySelector('thead')?.querySelectorAll('th')[0]; 
+    const firstThElement = tableElement.querySelector('thead')?.querySelectorAll('th')[0];
     const thCheckboxElement = firstThElement?.querySelector('input') as HTMLInputElement;
     const mockCheckBoxClick = thCheckboxElement.click;
     const tbodyCheckBoxElements = tableElement.querySelector('tbody')?.querySelectorAll('input');
@@ -232,7 +233,7 @@ describe('Component: Table with Props', () => {
 
   test('should call handleSingleChecked on click of checkbox in particular row', async () => {
     const tableElement = document.querySelector('table') as HTMLTableElement;
-    const firstTdElement = tableElement.querySelector('tbody')?.querySelectorAll('td')[0]; 
+    const firstTdElement = tableElement.querySelector('tbody')?.querySelectorAll('td')[0];
     const tdCheckboxElement = firstTdElement?.querySelector('input') as HTMLInputElement;
     const mockCheckBoxClick = tdCheckboxElement.click;
     //fireEvent.click(mockCheckBoxClick);

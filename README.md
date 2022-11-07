@@ -139,3 +139,45 @@ __views__
 Contain main views - dashboard, header. The main views contains respective child views based on features specific to that particular views.
 
 ## Screenshots
+
+### Landing page Light mode
+
+<p align="center">
+  <img src="screenshots/dt-landing-page-1-light-mode.jpg" alt="dt-landing-page-1-light-mode"/>
+  <br/>
+</p>
+
+### Landing page Dark mode | All checked boxes
+
+<p align="center">
+  <img src="screenshots/dt-landing-page-2-dark-mode-all-checked.jpg" alt="dt-landing-page-2-dark-mode-all-checked"/>
+  <br/>
+</p>
+
+### Filter by text and selected title column
+
+<p align="center">
+  <img src="screenshots/dt-landing-page-3-filter-by-title.jpg" alt="dt-landing-page-3-filter-by-title"/>
+  <br/>
+</p>
+
+### Sort table by column: photo id in descending order
+
+<p align="center">
+  <img src="screenshots/dt-landing-page-4-sort-by-column-desc.jpg" alt="dt-landing-page-4-sort-by-column-desc"/>
+  <br/>
+</p>
+
+### Sidebar with Photo details in light mode
+
+<p align="center">
+  <img src="screenshots/dt-landing-page-5-sidebar-light-mode.jpg" alt="dt-landing-page-5-sidebar-light-mode"/>
+  <br/>
+</p>
+
+### Sidebar with Photo details in dark mode
+
+<p align="center">
+  <img src="screenshots/dt-landing-page-6-sidebar-dark-mode.jpg" alt="dt-landing-page-6-sidebar-dark-mode"/>
+  <br/>
+</p>
