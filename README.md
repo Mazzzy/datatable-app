@@ -29,6 +29,9 @@ __Tools__
 - ``jest`` for unit testing.
 - LocalStorage for persisting theme mode at client's machine.
 
+## Live:
+
+[Datatable app](https://mazzzy.github.io/datatable-app/)
 ## How to use
 Go to root directory `datatable-app` and Execute commands with `npm` or `yarn`.
 
@@ -84,6 +87,16 @@ Or
 yarn test
 ```
 It runs all available test cases(components, views etc) across the application. You can also run test cases in different modes (watch, specific files, filter etc).
+
+## To deploy the application on GitHub
+```bash
+yarn deploy
+```
+Or
+```bash
+npm run deploy
+```
+It will create the build and deploy the application on mentioned url (refer to package.json -> homepage )
 
 ## Project folder structure
 ```bash
